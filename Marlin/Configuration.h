@@ -582,7 +582,7 @@
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 2500, 2500, 100, 25 }
+#define DEFAULT_MAX_FEEDRATE          { 500, 500, 15, 25 }
 
 /**
  * Default Max Acceleration (change/s) change = mm/s
@@ -590,7 +590,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
+#define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 100, 5000 }
 
 /**
  * Default Acceleration (change/s) change = mm/s
@@ -600,9 +600,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          575    // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_ACCELERATION          500    // X, Y, Z and E acceleration for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   1000    // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_TRAVEL_ACCELERATION   500    // X, Y, Z acceleration for travel (non printing) moves
 
 /**
  * Default Jerk (mm/s)
@@ -614,7 +614,7 @@
  */
 #define DEFAULT_XJERK                 10.0
 #define DEFAULT_YJERK                 10.0
-#define DEFAULT_ZJERK                  0.3
+#define DEFAULT_ZJERK                  0.4
 #define DEFAULT_EJERK                  5.0
 
 //===========================================================================
@@ -697,7 +697,7 @@
  */
 #define PROBING_HEATERS_OFF       // Turn heaters off when probing
 #define PROBING_FANS_OFF          // Turn fans off when probing
-//#define DELAY_BEFORE_PROBING 200  // (ms) To prevent vibrations from triggering piezo sensors
+#define DELAY_BEFORE_PROBING 500  // (ms) To prevent vibrations from triggering piezo sensors
 
 // A probe that is deployed and stowed with a solenoid pin (SOL1_PIN)
 //#define SOLENOID_PROBE
@@ -769,7 +769,7 @@
 #define Z_PROBE_OFFSET_RANGE_MAX 20
 
 // Enable the M48 repeatability test to test probe accuracy
-//#define Z_MIN_PROBE_REPEATABILITY_TEST
+#define Z_MIN_PROBE_REPEATABILITY_TEST
 
 // For Inverting Stepper Enable Pins (Active Low) use 0, Non Inverting (Active High) use 1
 // :{ 0:'Low', 1:'High' }
@@ -951,7 +951,7 @@
   /**
    * Enable the G26 Mesh Validation Pattern tool.
    */
-  //#define G26_MESH_VALIDATION
+  #define G26_MESH_VALIDATION
   #if ENABLED(G26_MESH_VALIDATION)
     #define MESH_TEST_NOZZLE_SIZE    0.4  // (mm) Diameter of primary nozzle.
     #define MESH_TEST_LAYER_HEIGHT   0.2  // (mm) Default layer height for the G26 Mesh Validation Tool.
@@ -983,7 +983,7 @@
 
     // Beyond the probed grid, continue the implied tilt?
     // Default is to maintain the height of the nearest edge.
-    //#define EXTRAPOLATE_BEYOND_GRID
+    #define EXTRAPOLATE_BEYOND_GRID
 
     //
     // Experimental Subdivision of the grid by Catmull-Rom method.
@@ -1411,13 +1411,13 @@
 // This option overrides the default number of encoder pulses needed to
 // produce one step. Should be increased for high-resolution encoders.
 //
-#define ENCODER_PULSES_PER_STEP 2
+#define ENCODER_PULSES_PER_STEP 1
 
 //
 // Use this option to override the number of step signals required to
 // move between next/prev menu items.
 //
-#define ENCODER_STEPS_PER_MENU_ITEM 5
+#define ENCODER_STEPS_PER_MENU_ITEM 1
 
 /**
  * Encoder Direction Options
@@ -1449,7 +1449,7 @@
 //
 // Add individual axis homing items (Home X, Home Y, and Home Z) to the LCD menu.
 //
-//#define INDIVIDUAL_AXIS_HOMING_MENU
+#define INDIVIDUAL_AXIS_HOMING_MENU
 
 //
 // SPEAKER/BUZZER
