@@ -162,7 +162,7 @@
 #elif defined(MIN_Z_HEIGHT_FOR_HOMING)
   #error "MIN_Z_HEIGHT_FOR_HOMING is now Z_HOMING_HEIGHT. Please update your configuration."
 #elif defined(Z_RAISE_BEFORE_PROBING) || defined(Z_RAISE_AFTER_PROBING)
-  #error "Z_RAISE_(BEFORE|AFTER)_PROBING are deprecated. Use Z_CLEARANCE_DEPLOY_PROBE instead."
+  #error "Z_RAISE_(BEFORE|AFTER)_PROBING are deprecated. Use Z_CLEARANCE_DEPLOY_PROBE and Z_AFTER_PROBING instead."
 #elif defined(Z_RAISE_PROBE_DEPLOY_STOW) || defined(Z_RAISE_BETWEEN_PROBINGS)
   #error "Z_RAISE_PROBE_DEPLOY_STOW and Z_RAISE_BETWEEN_PROBINGS are now Z_CLEARANCE_DEPLOY_PROBE and Z_CLEARANCE_BETWEEN_PROBES. Please update your configuration."
 #elif defined(Z_PROBE_DEPLOY_HEIGHT) || defined(Z_PROBE_TRAVEL_HEIGHT)
@@ -275,7 +275,7 @@
 /**
  * Serial
  */
-#ifndef USBCON
+#if !defined(__AVR__) || !defined(USBCON)
   #if ENABLED(SERIAL_XON_XOFF) && RX_BUFFER_SIZE < 1024
     #error "SERIAL_XON_XOFF requires RX_BUFFER_SIZE >= 1024 for reliable transfers without drops."
   #elif RX_BUFFER_SIZE && (RX_BUFFER_SIZE < 2 || !IS_POWER_OF_2(RX_BUFFER_SIZE))
@@ -789,6 +789,8 @@ static_assert(1 >= 0
     #error "Probes need Z_CLEARANCE_DEPLOY_PROBE >= 0."
   #elif Z_CLEARANCE_BETWEEN_PROBES < 0
     #error "Probes need Z_CLEARANCE_BETWEEN_PROBES >= 0."
+  #elif Z_AFTER_PROBING < 0
+    #error "Probes need Z_AFTER_PROBING >= 0."
   #endif
 
   #if MULTIPLE_PROBING && MULTIPLE_PROBING < 2
@@ -1308,7 +1310,7 @@ static_assert(1 >= 0
 /**
  * emergency-command parser
  */
-#if ENABLED(EMERGENCY_PARSER) && defined(USBCON)
+#if ENABLED(EMERGENCY_PARSER) && defined(__AVR__) && defined(USBCON)
   #error "EMERGENCY_PARSER does not work on boards with AT90USB processors (USBCON)."
 #endif
 

@@ -782,6 +782,7 @@
  */
 #define Z_CLEARANCE_DEPLOY_PROBE   10 // Z Clearance for Deploy/Stow
 #define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
+//#define Z_AFTER_PROBING           5 // Z position after probing is done
 
 // For M851 give a range for adjusting the Z probe offset
 #define Z_PROBE_OFFSET_RANGE_MIN -20
@@ -832,6 +833,8 @@
 // @section homing
 
 //#define NO_MOTION_BEFORE_HOMING  // Inhibit movement until all axes have been homed
+
+//#define UNKNOWN_Z_NO_RAISE // Don't raise Z (lower the bed) if Z is "unknown." For beds that fall when Z is powered off.
 
 // K8200: it is usual to have clamps for the glass plate on the heatbed
 #define Z_HOMING_HEIGHT 4   // (in mm) Minimal z height before homing (G28) for Z clearance above the bed, clamps, ...
