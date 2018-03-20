@@ -229,11 +229,11 @@ void _tmc_say_axis(const TMC_AxisEnum axis) {
 
 void _tmc_say_current(const TMC_AxisEnum axis, const uint16_t curr) {
   _tmc_say_axis(axis);
-  SERIAL_ECHOLNPAIR(" axis driver current: ", curr);
+  SERIAL_ECHOLNPAIR(" driver current: ", curr);
 }
 void _tmc_say_otpw(const TMC_AxisEnum axis, const bool otpw) {
   _tmc_say_axis(axis);
-  SERIAL_ECHOPGM(" axis temperature prewarn triggered: ");
+  SERIAL_ECHOPGM(" temperature prewarn triggered: ");
   serialprintPGM(otpw ? PSTR("true") : PSTR("false"));
   SERIAL_EOL();
 }
@@ -243,11 +243,11 @@ void _tmc_say_otpw_cleared(const TMC_AxisEnum axis) {
 }
 void _tmc_say_pwmthrs(const TMC_AxisEnum axis, const uint32_t thrs) {
   _tmc_say_axis(axis);
-  SERIAL_ECHOLNPAIR(" stealthChop max speed set to ", thrs);
+  SERIAL_ECHOLNPAIR(" stealthChop max speed: ", thrs);
 }
 void _tmc_say_sgt(const TMC_AxisEnum axis, const int8_t sgt) {
   _tmc_say_axis(axis);
-  SERIAL_ECHOPGM(" driver homing sensitivity set to ");
+  SERIAL_ECHOPGM(" homing sensitivity: ");
   SERIAL_PRINTLN(sgt, DEC);
 }
 
@@ -385,15 +385,15 @@ void _tmc_say_sgt(const TMC_AxisEnum axis, const int8_t sgt) {
         break;
       case TMC_TPWMTHRS_MMS: {
           uint32_t tpwmthrs_val = st.TPWMTHRS();
-          tpwmthrs_val ? SERIAL_ECHO(12650000UL * st.microsteps() / (256 * tpwmthrs_val * spmm)) : SERIAL_CHAR('-');
+          tpwmthrs_val ? SERIAL_ECHO(12650000UL * st.microsteps() / (256 * tpwmthrs_val * spmm)) : (void)SERIAL_CHAR('-');
         }
         break;
       case TMC_OTPW: serialprintPGM(st.otpw() ? PSTR("true") : PSTR("false")); break;
       case TMC_OTPW_TRIGGERED: serialprintPGM(st.getOTPW() ? PSTR("true") : PSTR("false")); break;
       case TMC_TOFF: SERIAL_PRINT(st.toff(), DEC); break;
       case TMC_TBL: SERIAL_PRINT(st.blank_time(), DEC); break;
-      case TMC_HEND: SERIAL_PRINT(st.hysterisis_end(), DEC); break;
-      case TMC_HSTRT: SERIAL_PRINT(st.hysterisis_start(), DEC); break;
+      case TMC_HEND: SERIAL_PRINT(st.hysteresis_end(), DEC); break;
+      case TMC_HSTRT: SERIAL_PRINT(st.hysteresis_start(), DEC); break;
       default: tmc_status(st, i); break;
     }
   }
@@ -545,7 +545,7 @@ void _tmc_say_sgt(const TMC_AxisEnum axis, const int8_t sgt) {
                "been triggered",     TMC_OTPW_TRIGGERED);
     TMC_REPORT("off time\t",         TMC_TOFF);
     TMC_REPORT("blank time",         TMC_TBL);
-    TMC_REPORT("hysterisis\n-end\t", TMC_HEND);
+    TMC_REPORT("hysteresis\n-end\t", TMC_HEND);
     TMC_REPORT("-start\t",           TMC_HSTRT);
     TMC_REPORT("Stallguard thrs",    TMC_SGT);
 
