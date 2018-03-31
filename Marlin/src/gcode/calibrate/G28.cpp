@@ -78,7 +78,6 @@
     #if ENABLED(SENSORLESS_HOMING)
       sensorless_homing_per_axis(X_AXIS, false);
       sensorless_homing_per_axis(Y_AXIS, false);
-      safe_delay(500); // Short delay needed to settle
     #endif
   }
 
@@ -310,7 +309,7 @@ void GcodeSuite::G28(const bool always_home_all) {
           HOMEAXIS(Z);
         #endif
       } // home_all || homeZ
-      #if HOMING_Z_WITH_PROBE
+      #if HOMING_Z_WITH_PROBE && Z_AFTER_PROBING
         move_z_after_probing();
       #endif
     #endif // Z_HOME_DIR < 0
